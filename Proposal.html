@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Proposal ♥</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f7f7;
+      overflow: hidden;
+    }
+    #message {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+      animation: bounce 2s infinite alternate;
+    }
+    #buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #FFB6C1;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out;
+    }
+    button:hover {
+      background-color: #000000;
+    }
+    #madCat {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; 
+        object-fit: cover; 
+        z-index: 999;
+    }
+    @keyframes bounce {
+      to {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+  <script>
+    const madCatImages = [
+      "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2NweGhucXpsdHVqNG85eWhqa3RrdzB2ZDR0djY5OW4zMWszbmRiciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wr7oA0rSjnWuiLJOY5/giphy.gif",
+      "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaG00azA5aG9ybDV4NnN4ODVqMHFsZ2EzMG56dTlqMmV3bTVvdmZvbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/M9C8PHLkh0hQxraaLG/giphy.gif",
+      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHR4cGJ4NjV2cjdqd3ZydW5hczg5ZjN5NzRyZjV2ZzlpeHcwaDBkcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vBTxCPUwfC6ddBsTbs/giphy.gif",
+      "https://i.imgur.com/ZfvKMfN.jpeg",
+      "https://i.imgur.com/nYMV2Wb.jpeg",
+      "https://i.imgur.com/4PiEgaT.jpeg",
+      "https://i.imgur.com/d1nsVqD.jpeg",
+      "https://i.imgur.com/GOp0awa.jpeg"
+    ];
+
+    let noButtonClickCount = 0;
+
+    function onNoButtonClick() {
+      noButtonClickCount++;
+
+      if (noButtonClickCount >= 3) {
+        playAudio("nosus.mp3");
+        showMadCatGIF();
+        noButtonClickCount = 0;
+      } else {
+        moveNoButton();
+      }
+    }
+
+    function showMadCatGIF() {
+      const madCatImage = document.getElementById("madCat");
+
+      // Pick a random GIF
+      const randomImageSrc = madCatImages[Math.floor(Math.random() * madCatImages.length)];
+
+      madCatImage.src = randomImageSrc;
+      madCatImage.style.display = "block";
+
+      // Hide after 5 seconds
+      setTimeout(() => {
+        madCatImage.style.display = "none";
+      }, 5000);
+    }
+
+    function moveNoButton() {
+      const noButton = document.getElementById("noButton");
+      const randomX = Math.floor(Math.random() * (window.innerWidth - noButton.offsetWidth));
+      const randomY = Math.floor(Math.random() * (window.innerHeight - noButton.offsetHeight));
+
+      noButton.style.position = "absolute";
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+    }
+
+    function playAudio(audioFile) {
+      const audio = new Audio(audioFile);
+      audio.play();
+    }
+
+    function onYesButtonClick() {
+      playAudio("happysong.mp3");
+      window.location.href = "https://kisukeayari.github.io/valentine-proposal/flower.html";
+    }
+
+    const noButton = document.getElementById("noButton");
+    const yesButton = document.getElementById("yesButton");
+
+    let isNoButtonDisabled = false;
+
+    noButton.addEventListener("click", (event) => {
+      if (isNoButtonDisabled) {
+        event.preventDefault();
+        return;
+      }
+
+      noButton.disabled = true;
+      yesButton.disabled = false;
+      isNoButtonDisabled = true;
+
+      noButton.style.position = "absolute";
+      noButton.style.left = `${Math.random() * window.innerWidth}px`;
+      noButton.style.top = `${Math.random() * window.innerHeight}px`;
+    });
+
+    document.addEventListener("mousemove", (event) => {
+      if (isNoButtonDisabled) {
+        noButton.style.left = `${event.pageX}px`;
+        noButton.style.top = `${event.pageY}px`;
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="message">
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDl3Z2h5ajZudXdmZ2Y3dWo1MGhyOGZxeDdtdTQ2OTN5MDM4cGJycSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kiC7Ia2XndA8CbYwGv/giphy.gif" 
+       alt="Cute GIF" 
+       style="width: 100px; display: block; margin: 0 auto;">
+    <p>♥ To Merryl ♥</p>
+    <p>Will you be my valentine & make every moment special?</p>
+  </div>
+  <div id="buttons">
+    <button id="yesButton" onclick="onYesButtonClick()">Yes</button>
+    <button id="noButton" onclick="onNoButtonClick()">No</button>
+  </div>
+  <img id="madCat" src="" alt="Mad Cat GIF">
+</body>
+</html>
